@@ -10,13 +10,34 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   background:
     radial-gradient(circle at top left, rgba(47, 125, 246, 0.16), transparent 34rem),
     radial-gradient(circle at top right, rgba(25, 211, 255, 0.08), transparent 30rem),
     #05070a;
   color: #f8fafc;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #05070a;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #1f2a37;
+  border-radius: 999px;
 }
 
 button,

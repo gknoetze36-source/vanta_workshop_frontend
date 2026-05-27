@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { EmptyState } from "@/components/states";
 import { Card, MetricCard, StatusPill } from "@/components/ui";
-import { automations, jobs, metrics, notifications, pipeline } from "@/lib/data";
+import type { DashboardData } from "@/lib/api";
 
-export function DashboardOverview() {
+export function DashboardOverview({ data }: { data: DashboardData }) {
+  const { automations, jobs, metrics, notifications, pipeline } = data;
+
   return (
     <div className="space-y-5">
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -28,8 +30,8 @@ export function DashboardOverview() {
               </Link>
             ))}
           </div>
-          <div className="mt-4 overflow-hidden rounded-md border border-line">
-            <table className="w-full text-left text-sm">
+          <div className="mt-4 overflow-x-auto rounded-md border border-line">
+            <table className="min-w-[760px] w-full text-left text-sm">
               <thead className="bg-black/25 text-xs uppercase text-muted">
                 <tr>
                   <th className="px-4 py-3">Job</th>

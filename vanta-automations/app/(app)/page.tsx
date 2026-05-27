@@ -1,6 +1,9 @@
 import { DashboardOverview } from "@/components/dashboard";
+import { getDashboardData } from "@/lib/data";
 
-export default function OverviewPage() {
+export default async function OverviewPage() {
+  const { navModules: _navModules, ...data } = await getDashboardData();
+
   return (
     <div className="space-y-5">
       <header>
@@ -10,7 +13,7 @@ export default function OverviewPage() {
           Workshop operations, customer communication, automation health, and growth metrics in one command surface.
         </p>
       </header>
-      <DashboardOverview />
+      <DashboardOverview data={data} />
     </div>
   );
 }

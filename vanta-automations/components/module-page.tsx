@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { EmptyState } from "@/components/states";
 import { Card, StatusPill } from "@/components/ui";
-import { automations, jobs, metrics } from "@/lib/data";
+import { automations, getDashboardData, jobs, metrics } from "@/lib/data";
 
 const copy: Record<string, { title: string; description: string }> = {
   jobs: { title: "Workshop Jobs", description: "Track active work, assignments, status, invoices, and customer updates." },
@@ -17,8 +17,12 @@ const copy: Record<string, { title: string; description: string }> = {
   settings: { title: "Settings", description: "Configure workspace details, roles, permissions, notifications, and integrations." },
 };
 
-export function ModulePage({ module }: { module: string }) {
+export async function ModulePage({ module }: { module: string }) {
   const page = copy[module] ?? copy.jobs;
+  const data = await getDashboardData();
+  const liveJobs = data.jobs.length ? data.jobs : jobs;
+  const liveAutomations = data.automations.length ? data.automations : automations;
+  const liveMetrics = data.metrics.length ? data.metrics : metrics;
 
   return (
     <div className="space-y-5">
@@ -34,7 +38,7 @@ export function ModulePage({ module }: { module: string }) {
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
-        {metrics.slice(0, 3).map((metric) => (
+        {liveMetrics.slice(0, 3).map((metric) => (
           <Card key={metric.label}>
             <p className="text-xs uppercase text-muted">{metric.label}</p>
             <p className="mt-2 text-2xl font-semibold">{metric.value}</p>
@@ -43,16 +47,16 @@ export function ModulePage({ module }: { module: string }) {
         ))}
       </section>
 
-      {module === "automations" || module === "assistant" ? <AutomationWorkbench /> : <OperationsTable />}
+      {module === "automations" || module === "assistant" ? <AutomationWorkbench automations={liveAutomations} /> : <OperationsTable jobs={liveJobs} />}
     </div>
   );
 }
 
-function OperationsTable() {
+function OperationsTable({ jobs }: { jobs: typeof import("@/lib/data").jobs }) {
   return (
     <Card title="Operational queue" action="Synced">
-      <div className="overflow-hidden rounded-md border border-line">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-md border border-line">
+        <table className="min-w-[760px] w-full text-left text-sm">
           <thead className="bg-black/25 text-xs uppercase text-muted">
             <tr>
               <th className="px-4 py-3">Record</th>
@@ -83,7 +87,7 @@ function OperationsTable() {
   );
 }
 
-function AutomationWorkbench() {
+function AutomationWorkbench({ automations }: { automations: typeof import("@/lib/data").automations }) {
   return (
     <section className="grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
       <Card title="Workflow builder" action="Draft">

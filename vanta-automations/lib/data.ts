@@ -1,7 +1,7 @@
 import type { Automation, Metric, NavModule, Notification, Workspace, WorkshopJob } from "./types";
+import { apiGetAny, asArray, asDashboardData, type DashboardData } from "./api";
 
-export const workspaces: Workspace[] = [
-];
+export const workspaces: Workspace[] = [];
 
 export const navModules: NavModule[] = [
   { label: "Overview", href: "/" },
@@ -25,14 +25,11 @@ export const metrics: Metric[] = [
   { label: "Revenue tracked", value: "-", delta: "Connect backend", tone: "amber" },
 ];
 
-export const jobs: WorkshopJob[] = [
-];
+export const jobs: WorkshopJob[] = [];
 
-export const automations: Automation[] = [
-];
+export const automations: Automation[] = [];
 
-export const notifications: Notification[] = [
-];
+export const notifications: Notification[] = [];
 
 export const pipeline = [
   { label: "Booked", count: 0 },
@@ -43,5 +40,12 @@ export const pipeline = [
 ];
 
 export async function getDashboardData() {
-  return { workspaces, navModules, metrics, jobs, automations, notifications, pipeline };
+  const fallback: DashboardData = { workspaces, metrics, jobs, automations, notifications, pipeline };
+  const data = await apiGetAny<unknown>(["/api/dashboard", "/api/v1/dashboard", "/dashboard"]);
+  return { navModules, ...asDashboardData(data, fallback) };
+}
+
+export async function getModuleRecords(module: string) {
+  const data = await apiGetAny<unknown>([`/api/${module}`, `/api/v1/${module}`, `/${module}`]);
+  return asArray<unknown>(data);
 }

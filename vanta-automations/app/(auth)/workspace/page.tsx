@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { AuthCard } from "@/components/auth-card";
 import { EmptyState } from "@/components/states";
-import { workspaces } from "@/lib/data";
+import { getDashboardData } from "@/lib/data";
 
-export default function WorkspacePage() {
+export default async function WorkspacePage() {
+  const { workspaces } = await getDashboardData();
+
   return (
     <AuthCard
       title="Choose workspace"
