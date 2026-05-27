@@ -79,7 +79,7 @@ export function AppShell({ children }: AppShellProps) {
               </Link>
               <Link href="/workspace" className="hidden min-w-44 rounded-md border border-line bg-panel px-3 py-2 transition hover:border-cyan/50 sm:block">
                 <p className="text-xs text-muted">Workspace</p>
-                <p className="truncate text-sm font-medium">VANTA Workshop Pro</p>
+                <p className="truncate text-sm font-medium">No workspace connected</p>
               </Link>
               <Link href="/settings" className="focus-ring grid size-10 place-items-center rounded-md bg-gradient-to-br from-electric to-cyan text-sm font-bold text-black" aria-label="Open user settings">
                 GK
@@ -129,7 +129,7 @@ function Sidebar({
       </nav>
       <div className="mt-auto rounded-md border border-line bg-panel p-4">
         <p className="text-sm font-medium">Smart notifications</p>
-        <p className="mt-1 text-xs text-muted">{notifications.length} operational alerts need review.</p>
+        <p className="mt-1 text-xs text-muted">{notifications.length} live operational alerts.</p>
         <Link href="/automations" className="mt-3 inline-flex text-xs font-medium text-cyan">
           Open monitor
         </Link>

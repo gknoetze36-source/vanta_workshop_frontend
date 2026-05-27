@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmptyState } from "@/components/states";
 import { Card, StatusPill } from "@/components/ui";
 import { automations, jobs, metrics } from "@/lib/data";
 
@@ -62,7 +63,7 @@ function OperationsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-line">
-            {jobs.map((job) => (
+            {jobs.length > 0 ? jobs.map((job) => (
               <tr key={job.id}>
                 <td className="px-4 py-3 font-medium"><Link href="/jobs" className="hover:text-cyan">{job.title}</Link></td>
                 <td className="px-4 py-3 text-muted">{job.customer}</td>
@@ -70,7 +71,11 @@ function OperationsTable() {
                 <td className="px-4 py-3"><StatusPill status={job.status} /></td>
                 <td className="px-4 py-3 text-muted">{job.dueAt}</td>
               </tr>
-            ))}
+            )) : (
+              <tr>
+                <td className="px-4 py-6 text-muted" colSpan={5}>No live records are connected yet.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -91,13 +96,13 @@ function AutomationWorkbench() {
       </Card>
       <Card title="Active automations">
         <div className="grid gap-3 md:grid-cols-2">
-          {automations.map((automation) => (
+          {automations.length > 0 ? automations.map((automation) => (
             <div key={automation.id} className="rounded-md border border-line bg-black/20 p-4">
               <p className="font-medium">{automation.name}</p>
               <p className="mt-2 text-sm text-muted">{automation.trigger}</p>
               <p className="mt-4 text-xs text-cyan">{automation.successRate}% success rate</p>
             </div>
-          ))}
+          )) : <EmptyState title="No live automations" description="Connect the backend to show workflows and run history." />}
         </div>
       </Card>
     </section>

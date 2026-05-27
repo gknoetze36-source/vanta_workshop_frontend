@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AuthCard } from "@/components/auth-card";
+import { EmptyState } from "@/components/states";
 import { workspaces } from "@/lib/data";
 
 export default function WorkspacePage() {
@@ -10,7 +11,7 @@ export default function WorkspacePage() {
       footer={<Link href="/login" className="font-medium text-cyan">Use another account</Link>}
     >
       <div className="space-y-3">
-        {workspaces.map((workspace) => (
+        {workspaces.length > 0 ? workspaces.map((workspace) => (
           <Link
             key={workspace.id}
             href="/"
@@ -19,7 +20,7 @@ export default function WorkspacePage() {
             <p className="font-medium">{workspace.name}</p>
             <p className="mt-1 text-sm text-muted">{workspace.plan} plan • {workspace.role}</p>
           </Link>
-        ))}
+        )) : <EmptyState title="No workspace connected" description="Workspace records will appear after authentication and backend integration." />}
       </div>
     </AuthCard>
   );

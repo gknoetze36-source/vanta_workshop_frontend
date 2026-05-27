@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmptyState } from "@/components/states";
 import { Card, MetricCard, StatusPill } from "@/components/ui";
 import { automations, jobs, metrics, notifications, pipeline } from "@/lib/data";
 
@@ -39,7 +40,7 @@ export function DashboardOverview() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-line">
-                {jobs.map((job) => (
+                {jobs.length > 0 ? jobs.map((job) => (
                   <tr key={job.id} className="bg-panel/30 transition hover:bg-cyan/5">
                     <td className="px-4 py-3 font-medium"><Link href="/jobs" className="hover:text-cyan">{job.title}</Link></td>
                     <td className="px-4 py-3 text-muted">{job.vehicle}</td>
@@ -47,7 +48,11 @@ export function DashboardOverview() {
                     <td className="px-4 py-3"><StatusPill status={job.status} /></td>
                     <td className="px-4 py-3 text-muted">{job.invoiceState}</td>
                   </tr>
-                ))}
+                )) : (
+                  <tr>
+                    <td className="px-4 py-6 text-muted" colSpan={5}>No live workshop jobs are connected yet.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -57,16 +62,16 @@ export function DashboardOverview() {
           <Link href="/assistant" className="block rounded-md border border-cyan/20 bg-cyan/5 p-4 transition hover:border-cyan/60">
             <p className="text-sm font-medium">Recommended next action</p>
             <p className="mt-2 text-sm text-muted">
-              Two jobs are waiting on parts. Notify customers, confirm supplier ETAs, and rebalance technician capacity.
+              Connect your backend to generate recommendations from live workshop, booking, customer, and automation data.
             </p>
           </Link>
           <div className="mt-4 space-y-3">
-            {notifications.map((item) => (
+            {notifications.length > 0 ? notifications.map((item) => (
               <Link key={item.id} href="/automations" className="block rounded-md border border-line bg-black/20 p-3 transition hover:border-cyan/50">
                 <p className="text-sm font-medium">{item.title}</p>
                 <p className="mt-1 text-xs text-muted">{item.message}</p>
               </Link>
-            ))}
+            )) : <EmptyState title="No live notifications" description="Operational alerts will appear after the backend is connected." />}
           </div>
         </Card>
       </section>
@@ -74,7 +79,7 @@ export function DashboardOverview() {
       <section className="grid gap-5 xl:grid-cols-3">
         <Card title="Automation monitor">
           <div className="space-y-3">
-            {automations.map((automation) => (
+            {automations.length > 0 ? automations.map((automation) => (
               <Link key={automation.id} href="/automations" className="flex items-center justify-between rounded-md border border-line bg-black/20 p-3 transition hover:border-cyan/50">
                 <div>
                   <p className="text-sm font-medium">{automation.name}</p>
@@ -82,7 +87,7 @@ export function DashboardOverview() {
                 </div>
                 <span className="rounded-full bg-electric/15 px-2.5 py-1 text-xs text-cyan">{automation.runsToday} runs</span>
               </Link>
-            ))}
+            )) : <EmptyState title="No automations connected" description="Live workflows will appear here after integration." />}
           </div>
         </Card>
         <Card title="Booking calendar">
@@ -90,21 +95,16 @@ export function DashboardOverview() {
             {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => (
               <Link key={day} href="/bookings" className="rounded-md border border-line bg-black/20 p-3 transition hover:border-cyan/50">
                 <p className="text-muted">{day}</p>
-                <p className="mt-2 text-xl font-semibold">{index + 4}</p>
+                <p className="mt-2 text-xl font-semibold">0</p>
               </Link>
             ))}
           </div>
           <Link href="/bookings" className="mt-4 block rounded-md border border-line bg-black/20 p-3 text-sm text-muted transition hover:border-cyan/50">
-            14:00 inspection slot open. Reception can assign to Sipho or queue follow-up.
+            No live booking calendar is connected yet.
           </Link>
         </Card>
         <Card title="Inventory signals">
-          {["Brake pads", "Oil filters", "Battery stock"].map((item, index) => (
-            <Link key={item} href="/inventory" className="mb-3 flex items-center justify-between rounded-md border border-line bg-black/20 p-3 text-sm transition hover:border-cyan/50">
-              <span>{item}</span>
-              <span className={index === 0 ? "text-cyan" : "text-muted"}>{index === 0 ? "Reorder" : "Stable"}</span>
-            </Link>
-          ))}
+          <EmptyState title="No inventory connected" description="Stock alerts will show once inventory data is available." />
         </Card>
       </section>
     </div>
