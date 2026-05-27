@@ -59,7 +59,7 @@ export function AppShell({ children }: AppShellProps) {
         ) : null}
       </AnimatePresence>
 
-      <div className="min-h-screen overflow-y-auto xl:pl-72">
+      <div className="min-h-dvh xl:pl-72">
         <header className="sticky top-0 z-30 border-b border-line bg-surface/82 backdrop-blur-xl">
           <div className="flex h-16 items-center gap-3 px-4 sm:px-6">
             <button
@@ -87,7 +87,7 @@ export function AppShell({ children }: AppShellProps) {
             </div>
           </div>
         </header>
-        <main className="px-4 py-5 sm:px-6 lg:py-7">{children}</main>
+        <main className="min-h-[calc(100dvh-4rem)] px-4 py-5 pb-16 sm:px-6 lg:py-7 lg:pb-20">{children}</main>
       </div>
     </div>
   );

@@ -11,6 +11,9 @@ export default function LoginPage() {
         <AuthInput label="Email" type="email" placeholder="you@company.com" />
         <AuthInput label="Password" type="password" placeholder="••••••••" />
       </div>
+      <p className="mt-4 rounded-md border border-line bg-black/20 p-3 text-xs text-muted">
+        Protected dashboards are locked until the frontend is connected to backend authentication.
+      </p>
       <div className="mt-3 text-right text-sm">
         <AuthLink href="/forgot-password">Forgot password?</AuthLink>
       </div>
