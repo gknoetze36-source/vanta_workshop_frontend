@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card, StatusPill } from "@/components/ui";
 import { automations, jobs, metrics } from "@/lib/data";
 
@@ -26,9 +27,9 @@ export function ModulePage({ module }: { module: string }) {
           <h1 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">{page.title}</h1>
           <p className="mt-2 max-w-2xl text-sm text-muted">{page.description}</p>
         </div>
-        <button className="focus-ring rounded-md bg-white px-4 py-2 text-sm font-semibold text-black">
+        <Link href={module === "automations" ? "/automations" : "/bookings"} className="focus-ring rounded-md bg-white px-4 py-2 text-sm font-semibold text-black">
           New record
-        </button>
+        </Link>
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -63,7 +64,7 @@ function OperationsTable() {
           <tbody className="divide-y divide-line">
             {jobs.map((job) => (
               <tr key={job.id}>
-                <td className="px-4 py-3 font-medium">{job.title}</td>
+                <td className="px-4 py-3 font-medium"><Link href="/jobs" className="hover:text-cyan">{job.title}</Link></td>
                 <td className="px-4 py-3 text-muted">{job.customer}</td>
                 <td className="px-4 py-3 text-muted">{job.technician}</td>
                 <td className="px-4 py-3"><StatusPill status={job.status} /></td>

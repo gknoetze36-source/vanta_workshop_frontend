@@ -38,5 +38,13 @@ export function StatusPill({ status, value }: { status?: string; value?: string 
 }
 
 export function SearchBox({ placeholder = "Search jobs, customers, automations" }: { placeholder?: string }) {
-  return <input className="focus-ring h-10 w-full rounded-md border border-line bg-white/[0.04] px-3 text-sm text-white placeholder:text-muted md:w-96" placeholder={placeholder} />;
+  return (
+    <form action="/jobs" className="w-full">
+      <input
+        name="q"
+        className="focus-ring h-10 w-full rounded-md border border-line bg-white/[0.04] px-3 text-sm text-white placeholder:text-muted md:w-96"
+        placeholder={placeholder}
+      />
+    </form>
+  );
 }

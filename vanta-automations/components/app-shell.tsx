@@ -73,17 +73,17 @@ export function AppShell({ children }: AppShellProps) {
               <SearchBox placeholder="Search jobs, customers, automations..." />
             </div>
             <div className="ml-auto flex items-center gap-2">
-              <button className="focus-ring relative grid size-10 place-items-center rounded-md border border-line bg-panel text-sm text-muted">
+              <Link href="/automations" className="focus-ring relative grid size-10 place-items-center rounded-md border border-line bg-panel text-sm text-muted" aria-label="Open notifications">
                 N
                 <span className="absolute right-2 top-2 size-2 rounded-full bg-cyan" />
-              </button>
-              <div className="hidden min-w-44 rounded-md border border-line bg-panel px-3 py-2 sm:block">
+              </Link>
+              <Link href="/workspace" className="hidden min-w-44 rounded-md border border-line bg-panel px-3 py-2 transition hover:border-cyan/50 sm:block">
                 <p className="text-xs text-muted">Workspace</p>
                 <p className="truncate text-sm font-medium">VANTA Workshop Pro</p>
-              </div>
-              <button className="focus-ring grid size-10 place-items-center rounded-md bg-gradient-to-br from-electric to-cyan text-sm font-bold text-black">
+              </Link>
+              <Link href="/settings" className="focus-ring grid size-10 place-items-center rounded-md bg-gradient-to-br from-electric to-cyan text-sm font-bold text-black" aria-label="Open user settings">
                 GK
-              </button>
+              </Link>
             </div>
           </div>
         </header>
