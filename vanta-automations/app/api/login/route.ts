@@ -6,12 +6,19 @@ export async function POST(request: NextRequest) {
   const username = String(formData.get("username") || "").trim();
   const password = String(formData.get("password") || "");
 
-  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-    cache: "no-store",
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+      cache: "no-store",
+    });
+  } catch {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("error", "backend_unavailable");
+    return NextResponse.redirect(loginUrl, 303);
+  }
 
   if (!response.ok) {
     const loginUrl = new URL("/login", request.url);
@@ -19,8 +26,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.redirect(loginUrl, 303);
   }
 
-  const payload = (await response.json()) as { token?: string };
-  if (!payload.token) {
+  const payload = (await response.json().catch(() => null)) as { token?: string } | null;
+  if (!payload?.token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("error", "missing_token");
     return NextResponse.redirect(loginUrl, 303);
