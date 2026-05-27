@@ -1,0 +1,104 @@
+import { Card, StatusPill } from "@/components/ui";
+import { automations, jobs, metrics } from "@/lib/data";
+
+const copy: Record<string, { title: string; description: string }> = {
+  jobs: { title: "Workshop Jobs", description: "Track active work, assignments, status, invoices, and customer updates." },
+  customers: { title: "Customers", description: "Manage customer profiles, service history, communication preferences, and lifetime value." },
+  vehicles: { title: "Vehicles", description: "Monitor vehicle records, service intervals, diagnostics, and job relationships." },
+  inventory: { title: "Inventory", description: "Control stock levels, reorder signals, suppliers, and job-linked parts usage." },
+  bookings: { title: "Bookings", description: "Coordinate bookings, reception intake, workshop capacity, and technician calendars." },
+  staff: { title: "Staff", description: "Plan technicians, roles, permissions, workload, and operational accountability." },
+  automations: { title: "Automations", description: "Build workflows for reminders, WhatsApp updates, job events, and follow-up actions." },
+  assistant: { title: "AI Assistant", description: "Use operational AI to summarize work, draft messages, and surface bottlenecks." },
+  reports: { title: "Reports", description: "Review revenue, job throughput, customer trends, and team performance." },
+  billing: { title: "Billing", description: "Manage subscription plans, invoices, usage, and billing configuration." },
+  settings: { title: "Settings", description: "Configure workspace details, roles, permissions, notifications, and integrations." },
+};
+
+export function ModulePage({ module }: { module: string }) {
+  const page = copy[module] ?? copy.jobs;
+
+  return (
+    <div className="space-y-5">
+      <header className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+        <div>
+          <p className="text-sm font-medium text-cyan">VANTA Automations</p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">{page.title}</h1>
+          <p className="mt-2 max-w-2xl text-sm text-muted">{page.description}</p>
+        </div>
+        <button className="focus-ring rounded-md bg-white px-4 py-2 text-sm font-semibold text-black">
+          New record
+        </button>
+      </header>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {metrics.slice(0, 3).map((metric) => (
+          <Card key={metric.label}>
+            <p className="text-xs uppercase text-muted">{metric.label}</p>
+            <p className="mt-2 text-2xl font-semibold">{metric.value}</p>
+            <p className="mt-1 text-xs text-cyan">{metric.delta}</p>
+          </Card>
+        ))}
+      </section>
+
+      {module === "automations" || module === "assistant" ? <AutomationWorkbench /> : <OperationsTable />}
+    </div>
+  );
+}
+
+function OperationsTable() {
+  return (
+    <Card title="Operational queue" action="Synced">
+      <div className="overflow-hidden rounded-md border border-line">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-black/25 text-xs uppercase text-muted">
+            <tr>
+              <th className="px-4 py-3">Record</th>
+              <th className="px-4 py-3">Customer</th>
+              <th className="px-4 py-3">Owner</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Due</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {jobs.map((job) => (
+              <tr key={job.id}>
+                <td className="px-4 py-3 font-medium">{job.title}</td>
+                <td className="px-4 py-3 text-muted">{job.customer}</td>
+                <td className="px-4 py-3 text-muted">{job.technician}</td>
+                <td className="px-4 py-3"><StatusPill status={job.status} /></td>
+                <td className="px-4 py-3 text-muted">{job.dueAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  );
+}
+
+function AutomationWorkbench() {
+  return (
+    <section className="grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
+      <Card title="Workflow builder" action="Draft">
+        {["Trigger", "Condition", "Action"].map((step, index) => (
+          <div key={step} className="mb-3 rounded-md border border-line bg-black/20 p-4">
+            <p className="text-xs text-muted">Step {index + 1}</p>
+            <p className="mt-1 text-sm font-medium">{step}</p>
+          </div>
+        ))}
+      </Card>
+      <Card title="Active automations">
+        <div className="grid gap-3 md:grid-cols-2">
+          {automations.map((automation) => (
+            <div key={automation.id} className="rounded-md border border-line bg-black/20 p-4">
+              <p className="font-medium">{automation.name}</p>
+              <p className="mt-2 text-sm text-muted">{automation.trigger}</p>
+              <p className="mt-4 text-xs text-cyan">{automation.successRate}% success rate</p>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </section>
+  );
+}
