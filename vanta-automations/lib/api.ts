@@ -16,10 +16,12 @@ export const API_BASE_URL =
 export async function apiGet<T>(path: string): Promise<T | null> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
+  const token = process.env.BACKEND_API_TOKEN;
 
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {
       cache: "no-store",
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
       signal: controller.signal,
     });
 
