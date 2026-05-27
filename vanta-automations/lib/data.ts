@@ -1,22 +1,8 @@
-import type { Automation, Metric, NavModule, Notification, Workspace, WorkshopJob } from "./types";
+import type { Automation, Metric, Notification, Workspace, WorkshopJob } from "./types";
 import { apiGetAny, asArray, asDashboardData, type DashboardData } from "./api";
+import { navModules } from "./nav";
 
 export const workspaces: Workspace[] = [];
-
-export const navModules: NavModule[] = [
-  { label: "Overview", href: "/" },
-  { label: "Workshop Jobs", href: "/jobs" },
-  { label: "Customers", href: "/customers" },
-  { label: "Vehicles", href: "/vehicles" },
-  { label: "Inventory", href: "/inventory" },
-  { label: "Bookings", href: "/bookings" },
-  { label: "Staff", href: "/staff" },
-  { label: "Automations", href: "/automations" },
-  { label: "AI Assistant", href: "/assistant" },
-  { label: "Reports", href: "/reports" },
-  { label: "Billing", href: "/billing" },
-  { label: "Settings", href: "/settings" },
-];
 
 export const metrics: Metric[] = [
   { label: "Open jobs", value: "-", delta: "Connect backend", tone: "blue" },

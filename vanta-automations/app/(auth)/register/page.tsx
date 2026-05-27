@@ -8,9 +8,9 @@ export default function RegisterPage() {
       footer={<>Already registered? <AuthLink href="/login">Sign in</AuthLink></>}
     >
       <div className="space-y-4">
-        <AuthInput label="Name" placeholder="Your name" />
-        <AuthInput label="Work email" type="email" placeholder="you@company.com" />
-        <AuthInput label="Password" type="password" placeholder="Create a password" />
+        <AuthInput label="Name" name="name" placeholder="Your name" />
+        <AuthInput label="Work email" name="email" type="email" placeholder="you@company.com" />
+        <AuthInput label="Password" name="password" type="password" placeholder="Create a password" />
       </div>
       <SubmitButton>Create account</SubmitButton>
     </AuthCard>

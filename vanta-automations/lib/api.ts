@@ -1,4 +1,5 @@
 import type { Automation, Metric, Notification, Workspace, WorkshopJob } from "./types";
+import { cookies } from "next/headers";
 
 export type DashboardData = {
   workspaces: Workspace[];
@@ -16,7 +17,8 @@ export const API_BASE_URL =
 export async function apiGet<T>(path: string): Promise<T | null> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
-  const token = process.env.BACKEND_API_TOKEN;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("vanta_session")?.value;
 
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {

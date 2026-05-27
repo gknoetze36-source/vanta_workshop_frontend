@@ -26,19 +26,25 @@ export function AuthCard({ title, subtitle, children, footer }: AuthCardProps) {
 
 export function AuthInput({
   label,
+  name,
   type = "text",
   placeholder,
+  required = true,
 }: {
   label: string;
+  name: string;
   type?: string;
   placeholder: string;
+  required?: boolean;
 }) {
   return (
     <label className="block">
       <span className="text-xs font-medium uppercase tracking-wide text-muted">{label}</span>
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
+        required={required}
         className="focus-ring mt-2 w-full rounded-md border border-line bg-black/30 px-3 py-2.5 text-sm outline-none placeholder:text-muted/60"
       />
     </label>
@@ -47,7 +53,7 @@ export function AuthInput({
 
 export function SubmitButton({ children }: { children: React.ReactNode }) {
   return (
-    <button className="focus-ring mt-5 w-full rounded-md bg-gradient-to-r from-electric to-cyan px-4 py-2.5 text-sm font-semibold text-black">
+    <button type="submit" className="focus-ring mt-5 w-full rounded-md bg-gradient-to-r from-electric to-cyan px-4 py-2.5 text-sm font-semibold text-black">
       {children}
     </button>
   );

@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Brand } from "@/components/brand";
 import { SearchBox } from "@/components/ui";
-import { navModules, notifications } from "@/lib/data";
+import { navModules } from "@/lib/nav";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -129,7 +129,7 @@ function Sidebar({
       </nav>
       <div className="mt-auto rounded-md border border-line bg-panel p-4">
         <p className="text-sm font-medium">Smart notifications</p>
-        <p className="mt-1 text-xs text-muted">{notifications.length} live operational alerts.</p>
+        <p className="mt-1 text-xs text-muted">Live operational alerts appear after login.</p>
         <Link href="/automations" className="mt-3 inline-flex text-xs font-medium text-cyan">
           Open monitor
         </Link>
