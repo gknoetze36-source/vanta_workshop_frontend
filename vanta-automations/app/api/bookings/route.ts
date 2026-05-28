@@ -4,7 +4,7 @@ import { API_BASE_URL } from "@/lib/config";
 
 const errorMessages: Record<string, string> = {
   branch_required: "Choose a branch before creating the booking.",
-  phone_must_include_region_code: "Phone number must start with a region code, for example +27821234567.",
+  invalid_phone_number: "Enter a valid phone number, for example 0821234567 or +27821234567.",
   service_required: "Enter the service or work required.",
 };
 
