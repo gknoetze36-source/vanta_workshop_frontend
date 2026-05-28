@@ -13,7 +13,7 @@ export default async function LoginPage({
 }) {
   const params = await searchParams;
   const error = params?.error ? errorMessages[params.error] ?? "Login failed. Try again." : "";
-  const next = params?.next || "/";
+  const next = params?.next || "/dashboard";
 
   return (
     <AuthCard

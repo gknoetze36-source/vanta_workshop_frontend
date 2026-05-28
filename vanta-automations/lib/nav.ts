@@ -1,7 +1,7 @@
 import type { NavModule } from "./types";
 
 export const navModules: NavModule[] = [
-  { label: "Overview", href: "/" },
+  { label: "Overview", href: "/dashboard" },
   { label: "Workshop Jobs", href: "/jobs" },
   { label: "Customers", href: "/customers" },
   { label: "Vehicles", href: "/vehicles" },
