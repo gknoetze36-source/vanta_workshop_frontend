@@ -7,9 +7,11 @@ import { useState } from "react";
 import { Brand } from "@/components/brand";
 import { SearchBox } from "@/components/ui";
 import { navModules } from "@/lib/nav";
+import type { CurrentUser } from "@/lib/types";
 
 type AppShellProps = {
   children: React.ReactNode;
+  user?: CurrentUser;
 };
 
 const iconMap: Record<string, string> = {
@@ -27,9 +29,16 @@ const iconMap: Record<string, string> = {
   Settings: "SE",
 };
 
-export function AppShell({ children }: AppShellProps) {
+function initialsFor(user?: CurrentUser) {
+  const source = user?.full_name || user?.username || "User";
+  const parts = source.split(/[.\s_-]+/).filter(Boolean);
+  return (parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : source.slice(0, 2)).toUpperCase();
+}
+
+export function AppShell({ children, user }: AppShellProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const workspace = user?.branch_name || user?.franchise_name || "Workspace";
 
   return (
     <div className="min-h-screen bg-surface text-white">
@@ -79,11 +88,16 @@ export function AppShell({ children }: AppShellProps) {
               </Link>
               <Link href="/workspace" className="hidden min-w-44 rounded-md border border-line bg-panel px-3 py-2 transition hover:border-cyan/50 sm:block">
                 <p className="text-xs text-muted">Workspace</p>
-                <p className="truncate text-sm font-medium">No workspace connected</p>
+                <p className="truncate text-sm font-medium">{workspace}</p>
               </Link>
-              <Link href="/settings" className="focus-ring grid size-10 place-items-center rounded-md bg-gradient-to-br from-electric to-cyan text-sm font-bold text-black" aria-label="Open user settings">
-                GK
-              </Link>
+              <form action="/api/logout" method="post" className="flex items-center gap-2">
+                <Link href="/settings" className="focus-ring grid size-10 place-items-center rounded-md bg-gradient-to-br from-electric to-cyan text-sm font-bold text-black" aria-label="Open user settings">
+                  {initialsFor(user)}
+                </Link>
+                <button className="focus-ring hidden rounded-md border border-line px-3 py-2 text-sm text-muted hover:text-white sm:block" type="submit">
+                  Sign out
+                </button>
+              </form>
             </div>
           </div>
         </header>

@@ -58,3 +58,13 @@ export type Workspace = {
   plan: "Basic" | "Growth" | "Premium";
   role: Role;
 };
+
+export type CurrentUser = {
+  id?: number | string;
+  username?: string;
+  full_name?: string;
+  email?: string;
+  role?: string;
+  franchise_name?: string;
+  branch_name?: string;
+};

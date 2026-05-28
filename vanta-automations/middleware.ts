@@ -5,7 +5,7 @@ const publicPaths = new Set(["/login", "/register", "/forgot-password"]);
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (publicPaths.has(pathname)) {
+  if (publicPaths.has(pathname) || pathname.startsWith("/api/login") || pathname.startsWith("/api/logout")) {
     return NextResponse.next();
   }
 
