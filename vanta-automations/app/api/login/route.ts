@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { API_BASE_URL } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/config";
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();

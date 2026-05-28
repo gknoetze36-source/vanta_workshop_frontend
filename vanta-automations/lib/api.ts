@@ -1,5 +1,6 @@
 import type { Automation, Metric, Notification, Workspace, WorkshopJob } from "./types";
 import { cookies } from "next/headers";
+import { API_BASE_URL } from "./config";
 
 export type DashboardData = {
   workspaces: Workspace[];
@@ -9,10 +10,6 @@ export type DashboardData = {
   notifications: Notification[];
   pipeline: { label: string; count: number }[];
 };
-
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
-  "https://vanta-automation.up.railway.app";
 
 export async function apiGet<T>(path: string): Promise<T | null> {
   const controller = new AbortController();
