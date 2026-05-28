@@ -82,7 +82,7 @@ export async function BookingsPage({ searchParams }: { searchParams: SearchParam
             <div className="grid gap-4 md:grid-cols-2">
               <label className="text-sm text-muted">
                 Phone
-                <input name="phone" required placeholder="0821234567 or +27821234567" pattern="^(\\+?[1-9][0-9]{7,14}|0[0-9]{9})$" className={inputClass} />
+                <input name="phone" required type="tel" placeholder="0821234567 or +27821234567" className={inputClass} />
               </label>
               <label className="text-sm text-muted">
                 Email
