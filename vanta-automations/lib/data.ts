@@ -5,10 +5,10 @@ import { navModules } from "./nav";
 export const workspaces: Workspace[] = [];
 
 export const metrics: Metric[] = [
-  { label: "Open jobs", value: "-", delta: "Connect backend", tone: "blue" },
-  { label: "Bookings", value: "-", delta: "Connect backend", tone: "cyan" },
-  { label: "Automation runs", value: "-", delta: "Connect backend", tone: "green" },
-  { label: "Revenue tracked", value: "-", delta: "Connect backend", tone: "amber" },
+  { label: "Open jobs", value: "0", delta: "Live data unavailable", tone: "blue" },
+  { label: "Bookings", value: "0", delta: "Live data unavailable", tone: "cyan" },
+  { label: "Automation runs", value: "0", delta: "Live data unavailable", tone: "green" },
+  { label: "Revenue tracked", value: "R0", delta: "Live data unavailable", tone: "amber" },
 ];
 
 export const jobs: WorkshopJob[] = [];

@@ -29,6 +29,13 @@ export type WorkshopJob = {
   invoiceState: "Draft" | "Sent" | "Paid" | "Pending";
 };
 
+export type Branch = {
+  id: number | string;
+  name: string;
+  franchise_name?: string;
+  location?: string;
+};
+
 export type Automation = {
   id: string;
   name: string;

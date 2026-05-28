@@ -1,5 +1,5 @@
-import { ModulePage } from "@/components/module-page";
+import { BookingsPage } from "@/components/bookings-page";
 
-export default function BookingsPage() {
-  return <ModulePage module="bookings" />;
+export default async function Page({ searchParams }: { searchParams: Promise<{ created?: string; error?: string }> }) {
+  return <BookingsPage searchParams={await searchParams} />;
 }

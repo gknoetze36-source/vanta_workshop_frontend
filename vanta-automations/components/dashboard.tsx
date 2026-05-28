@@ -64,7 +64,7 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
           <Link href="/assistant" className="block rounded-md border border-cyan/20 bg-cyan/5 p-4 transition hover:border-cyan/60">
             <p className="text-sm font-medium">Recommended next action</p>
             <p className="mt-2 text-sm text-muted">
-              Connect your backend to generate recommendations from live workshop, booking, customer, and automation data.
+              Recommendations will appear when assistant insights are available for the current workspace.
             </p>
           </Link>
           <div className="mt-4 space-y-3">
@@ -73,7 +73,7 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
                 <p className="text-sm font-medium">{item.title}</p>
                 <p className="mt-1 text-xs text-muted">{item.message}</p>
               </Link>
-            )) : <EmptyState title="No live notifications" description="Operational alerts will appear after the backend is connected." />}
+            )) : <EmptyState title="No live notifications" description="Operational alerts will appear when there is activity for this workspace." />}
           </div>
         </Card>
       </section>
@@ -89,7 +89,7 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
                 </div>
                 <span className="rounded-full bg-electric/15 px-2.5 py-1 text-xs text-cyan">{automation.runsToday} runs</span>
               </Link>
-            )) : <EmptyState title="No automations connected" description="Live workflows will appear here after integration." />}
+            )) : <EmptyState title="No automations running" description="Workflow activity will appear here after automations start running." />}
           </div>
         </Card>
         <Card title="Booking calendar">
@@ -102,11 +102,11 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
             ))}
           </div>
           <Link href="/bookings" className="mt-4 block rounded-md border border-line bg-black/20 p-3 text-sm text-muted transition hover:border-cyan/50">
-            No live booking calendar is connected yet.
+            No dated bookings are scheduled yet.
           </Link>
         </Card>
         <Card title="Inventory signals">
-          <EmptyState title="No inventory connected" description="Stock alerts will show once inventory data is available." />
+          <EmptyState title="No inventory alerts" description="Stock alerts will show when inventory records need attention." />
         </Card>
       </section>
     </div>

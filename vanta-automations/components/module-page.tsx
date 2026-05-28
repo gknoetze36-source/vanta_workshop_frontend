@@ -77,7 +77,7 @@ function OperationsTable({ jobs }: { jobs: typeof import("@/lib/data").jobs }) {
               </tr>
             )) : (
               <tr>
-                <td className="px-4 py-6 text-muted" colSpan={5}>No live records are connected yet.</td>
+                <td className="px-4 py-6 text-muted" colSpan={5}>No records available for this workspace yet.</td>
               </tr>
             )}
           </tbody>
@@ -106,7 +106,7 @@ function AutomationWorkbench({ automations }: { automations: typeof import("@/li
               <p className="mt-2 text-sm text-muted">{automation.trigger}</p>
               <p className="mt-4 text-xs text-cyan">{automation.successRate}% success rate</p>
             </div>
-          )) : <EmptyState title="No live automations" description="Connect the backend to show workflows and run history." />}
+          )) : <EmptyState title="No live automations" description="Workflow runs will show here when automations are active." />}
         </div>
       </Card>
     </section>
