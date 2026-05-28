@@ -1,5 +1,5 @@
-import { ModulePage } from "@/components/module-page";
+import { CustomersPage as CustomersView } from "@/components/customers-page";
 
-export default function CustomersPage() {
-  return <ModulePage module="customers" />;
+export default function Page() {
+  return <CustomersView />;
 }

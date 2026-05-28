@@ -36,6 +36,17 @@ export type Branch = {
   location?: string;
 };
 
+export type CustomerRecord = {
+  id: string;
+  name: string;
+  phone?: string;
+  email?: string;
+  branch_name?: string;
+  latest_booking?: string;
+  work_to_be_done?: string;
+  internal_notes?: string;
+};
+
 export type Automation = {
   id: string;
   name: string;
