@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { API_BASE_URL } from "@/lib/config";
+import { appUrl } from "@/lib/request-url";
 
 const errorMessages: Record<string, string> = {
   branch_required: "Choose a branch before creating the booking.",
@@ -12,12 +13,12 @@ export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const cookieStore = await cookies();
   const token = cookieStore.get("vanta_session")?.value;
-  const redirectUrl = new URL("/bookings", request.url);
+  const redirectUrl = appUrl(request, "/bookings");
 
   if (!token) {
-    redirectUrl.pathname = "/login";
-    redirectUrl.searchParams.set("next", "/bookings");
-    return NextResponse.redirect(redirectUrl, 303);
+    const loginUrl = appUrl(request, "/login");
+    loginUrl.searchParams.set("next", "/bookings");
+    return NextResponse.redirect(loginUrl, 303);
   }
 
   const payload = Object.fromEntries(formData.entries());

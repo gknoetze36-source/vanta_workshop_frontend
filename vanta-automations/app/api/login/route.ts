@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { API_BASE_URL } from "@/lib/config";
+import { appUrl } from "@/lib/request-url";
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
@@ -15,26 +16,26 @@ export async function POST(request: NextRequest) {
       cache: "no-store",
     });
   } catch {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = appUrl(request, "/login");
     loginUrl.searchParams.set("error", "backend_unavailable");
     return NextResponse.redirect(loginUrl, 303);
   }
 
   if (!response.ok) {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = appUrl(request, "/login");
     loginUrl.searchParams.set("error", "invalid_credentials");
     return NextResponse.redirect(loginUrl, 303);
   }
 
   const payload = (await response.json().catch(() => null)) as { token?: string } | null;
   if (!payload?.token) {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = appUrl(request, "/login");
     loginUrl.searchParams.set("error", "missing_token");
     return NextResponse.redirect(loginUrl, 303);
   }
 
   const nextPath = request.nextUrl.searchParams.get("next") || "/";
-  const redirectUrl = new URL(nextPath.startsWith("/") ? nextPath : "/", request.url);
+  const redirectUrl = appUrl(request, nextPath.startsWith("/") ? nextPath : "/");
   const nextResponse = NextResponse.redirect(redirectUrl, 303);
   nextResponse.cookies.set("vanta_session", payload.token, {
     httpOnly: true,
