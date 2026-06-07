@@ -34,7 +34,9 @@ export function AppShell({ children, user }: AppShellProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const workspace = user?.branch_name || user?.franchise_name || "Workspace";
+  const onboardingComplete = false;
 
+  
   return (
     <div className="min-h-screen bg-surface text-white">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 border-r border-line bg-black/30 px-4 py-5 backdrop-blur xl:block">
@@ -96,11 +98,24 @@ export function AppShell({ children, user }: AppShellProps) {
             </div>
           </div>
         </header>
-        <main className="min-h-[calc(100dvh-4rem)] px-4 py-5 pb-16 sm:px-6 lg:py-7 lg:pb-20">{children}</main>
-      </div>
-    </div>
-  );
-}
+        <main className="min-h-[calc(100dvh-4rem)] px-4 py-5 pb-16 sm:px-6 lg:py-7 lg:pb-20">
+          {!onboardingComplete && (
+            <div className="mb-6 rounded-md border border-cyan/30 bg-cyan/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan">
+              Whatsapp Setup Required
+            </h3>
+            <p className="mt-2 text-sm text-muted">
+            Connect your Whatsapp Business account to start receiving bookings,reminders and customer messages
+            </p>
+            <Link
+              href="/whatsapp"
+              className="mt-3 inline-flex rounded-md bg-cyan px-4 py-2 text-sm font-medium text-black">
+               Start Whatsapp Setup
+            </Link> 
+            </div>
+      )}
+          {children}
+        </main>
 
 function Sidebar({
   pathname,
