@@ -15,18 +15,13 @@ type AppShellProps = {
 };
 
 const iconMap: Record<string, string> = {
-  Overview: "OV",
-  "Workshop Jobs": "WJ",
-  Customers: "CU",
-  Vehicles: "VE",
-  Inventory: "IN",
-  Bookings: "BK",
-  Staff: "ST",
-  Automations: "AU",
-  "AI Assistant": "AI",
-  Reports: "RP",
-  Billing: "BI",
-  Settings: "SE",
+Dashboard: "DB",
+"Bookings & Walk-ins": "BW",
+Customers: "CU",
+"Service Reminders": "SR",
+Whatsapp: "WA",
+Reports: "RP",
+Settings: "SE",
 };
 
 function initialsFor(user?: CurrentUser) {
@@ -79,10 +74,10 @@ export function AppShell({ children, user }: AppShellProps) {
               <span className="h-0.5 w-5 bg-white shadow-[0_6px_0_white,0_-6px_0_white]" />
             </button>
             <div className="hidden flex-1 md:block">
-              <SearchBox placeholder="Search jobs, customers, automations..." />
+              <SearchBox placeholder="Search bookings, customers, reminders..." />
             </div>
             <div className="ml-auto flex items-center gap-2">
-              <Link href="/automations" className="focus-ring relative grid size-10 place-items-center rounded-md border border-line bg-panel text-sm text-muted" aria-label="Open notifications">
+              <Link href="/reminders" className="focus-ring relative grid size-10 place-items-center rounded-md border border-line bg-panel text-sm text-muted" aria-label="Open notifications">
                 N
                 <span className="absolute right-2 top-2 size-2 rounded-full bg-cyan" />
               </Link>
@@ -142,9 +137,9 @@ function Sidebar({
         })}
       </nav>
       <div className="mt-auto rounded-md border border-line bg-panel p-4">
-        <p className="text-sm font-medium">Smart notifications</p>
-        <p className="mt-1 text-xs text-muted">Live operational alerts appear after login.</p>
-        <Link href="/automations" className="mt-3 inline-flex text-xs font-medium text-cyan">
+        <p className="text-sm font-medium">Workshop Reminders</p>
+        <p className="mt-1 text-xs text-muted">Service follow-ups and customer reminders appear here.</p>
+        <Link href="/reminders" className="mt-3 inline-flex text-xs font-medium text-cyan">
           Open monitor
         </Link>
       </div>
