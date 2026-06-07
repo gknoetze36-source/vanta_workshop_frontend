@@ -19,7 +19,7 @@ Dashboard: "DB",
 "Bookings & Walk-ins": "BW",
 Customers: "CU",
 "Service Reminders": "SR",
-Whatsapp: "WA",
+WhatsApp: "WA",
 Reports: "RP",
 Settings: "SE",
 };
@@ -116,6 +116,10 @@ export function AppShell({ children, user }: AppShellProps) {
       )}
           {children}
         </main>
+      </div>
+    </div> 
+);
+}
 
 function Sidebar({
   pathname,
